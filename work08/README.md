@@ -1,0 +1,9 @@
+scores: 14.0
+scores: 17.0
+scores: 20.0
+scores: 15.0
+scores: 13.0
+scores: 8.0
+max: 20.0
+min: 8.0
+avg: 14.5
