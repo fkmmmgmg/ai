@@ -1,4 +1,4 @@
-from work06.engine import Tensor
+from engine import Tensor
 
 from keras.datasets import mnist
 import keras

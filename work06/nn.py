@@ -1,4 +1,4 @@
-from work06.engine import Tensor
+from engine import Tensor
 import numpy as np
 
 class Module:

@@ -1,26 +1,30 @@
-from scipy.optimize import linprog
+import random
 
-def linear_programming_3d():
-    c = [3, 2, 5]  # 目標函數的係數：3x + 2y + 5z
+def total_value(x, y, z):
+    return 3 * x + 2 * y + 5 * z
 
-    # 不等式約束的係數矩陣 A_ub 和右側值 b_ub
-    A_ub = [[-1, 0, 0],  # x >= 0
-            [0, -1, 0],  # y >= 0
-            [0, 0, -1],  # z >= 0
-            [1, 1, 0],   # x + y <= 10
-            [2, 0, 1],   # 2x + z <= 9
-            [0, 1, 2]]   # y + 2z <= 11
-    b_ub = [0, 0, 0, 10, 9, 11]
+def random_neighbor(x, y, z):
+    new_x = random.uniform(max(0, x - 0.1), min(10, x + 0.1))
+    new_y = random.uniform(max(0, y - 0.1), min(10, y + 0.1))
+    new_z = random.uniform(max(0, z - 0.1), min(5.5, z + 0.1))
+    return new_x, new_y, new_z
 
-    # 變量界限
-    bounds = [(0, None), (0, None), (0, None)]  # x, y, z 都大於等於 0
+def hill_climbing():
+    x = random.uniform(0, 10)
+    y = random.uniform(0, 10)
+    z = random.uniform(0, 5.5)
+    best_value = total_value(x, y, z)
 
-    # 使用線性規劃函數求解
-    res = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=bounds)
+    iterations = 10000
+    for _ in range(iterations):
+        new_x, new_y, new_z = random_neighbor(x, y, z)
+        new_value = total_value(new_x, new_y, new_z)
+        if new_value > best_value:
+            x, y, z = new_x, new_y, new_z
+            best_value = new_value
 
-    # 打印結果
-    print("Optimal value:", res.fun)
-    print("Optimal solution (x, y, z):", res.x)
+    return {"x": x, "y": y, "z": z}, best_value
 
-# 執行演算法
-linear_programming_3d()
+solution, value = hill_climbing()
+print("Best solution:", solution)
+print("Optimal value:", value)

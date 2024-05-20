@@ -1,8 +1,8 @@
 import random
 import numpy as np
 import matplotlib.pyplot as plt
-from work06.engine import Tensor
-from work06.nn import MLP
+from engine import Tensor
+from nn import MLP
 
 np.random.seed(1337)
 random.seed(1337)
