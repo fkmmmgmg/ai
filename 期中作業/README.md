@@ -1,10 +1,16 @@
-參考網頁
+# 參考網頁
 https://edge.aif.tw/express-langchain-chatpdf/
 
+## 說明
 主要架構相似，將與openAI相關套件替換成與ChatGroq API可使用的套件
 練習資料為Sensitivity of correlation structure of class- and landscape-levelmetrics in three diverse regionsliu2016.pdf(為全英文文章)
+資料引入的方式是直接從電腦的資料夾引入，如有需求可更改路徑
+建議用jupyter比較快
 
+## 問題
+翻譯的部分會出現error，但問問題的部分回答還可以
 
+## 範例
 Q: 總結整篇文章的內容
 Error: Translation API request failed with status code 404
 D:\anaconda\lib\site-packages\langchain_core\_api\deprecation.py:119: LangChainDeprecationWarning: The method `Chain.__call__` was deprecated in langchain 0.1.0 and will be removed in 0.3.0. Use invoke instead.
