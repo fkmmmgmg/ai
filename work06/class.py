@@ -8,10 +8,11 @@ np.random.seed(1337)
 random.seed(1337)
 
 # make up a dataset
-
+#先生成一個有雜點(噪音？)的月亮(make_moons)形狀數聚集
 from sklearn.datasets import make_moons, make_blobs
 X, y = make_moons(n_samples=100, noise=0.1)
 
+#將標籤 y 轉換為二元標籤，即將原來的0和1轉換為-1和1
 y = y*2 - 1 # make y be -1 or 1
 '''
 # visualize in 2D
@@ -21,6 +22,7 @@ plt.scatter(X[:,0], X[:,1], c=y, s=20, cmap='jet')
 plt.show()
 '''
 # initialize a model 
+#一個多層感知器模型 MLP
 model = MLP(2, [16, 16, 1]) # 2-layer neural network
 
 # loss function

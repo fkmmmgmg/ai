@@ -5,9 +5,20 @@ import torch.nn.functional as F
 import torch.optim as optim
 import matplotlib.pyplot as plt
 import sys
+#import fc3relu
+#import fc1
+#import fc2
+#import fc2sig
+import lenetRelu
 
-module = __import__(sys.argv[1])
-Net = module.Net
+
+print(sys.argv)
+
+#Net = fc3relu.Net
+#Net = fc1.Net
+#Net = fc2.Net
+#Net = fc2sig.Net
+Net = lenetRelu
 
 n_epochs = 8
 batch_size_train = 64

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英文到其他語言翻譯</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>英文到其他語言翻譯</h1>
+    <textarea id="inputText" rows="4" cols="50" placeholder="輸入英文"></textarea>
+    <br>
+    <label for="languageSelect">選擇語言:</label>
+    <select id="languageSelect">
+        <option value="zh-TW">繁體中文</option>
+        <option value="es">西班牙文</option>
+        <option value="zh">簡體中文</option>
+        <option value="French">法文</option>
+        <option value="Japanese">日文</option>
+        <option value="Korean language">韓文</option>
+        <option value="Thai">泰文</option>
+    </select>
+    <br>
+    <button id="translateButton">翻譯</button>
+    <h2>翻譯結果</h2>
+    <div id="outputText"></div>
+
+    <script>
+        const key = "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";
+
+        async function groqChat(q) {
+            const jsonResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                body: JSON.stringify({
+                    "model": "llama3-8b-8192",
+                    "messages": [{"role": "user", "content": q}],
+                    "temperature": 0.7
+                }),
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${key}`,
+                }
+            });
+            const jsonData = await jsonResponse.json();
+            console.log(JSON.stringify(jsonData, null, 2));
+            return jsonData.choices[0].message.content;
+        }
+
+        async function chat() {
+            let inputText = document.querySelector('#inputText').value;
+            let targetLang = document.querySelector('#languageSelect').value;
+            let responseNode = document.querySelector('#outputText');
+            responseNode.innerText = '詢問 ChatGPT 中，請稍等幾秒鐘 ...';
+
+            // 打印輸入值進行調試
+            console.log("Input Text:", inputText);
+            console.log("Target Language:", targetLang);
+
+            // 組裝翻譯請求
+            let question = `請將${inputText}字詞用 ${targetLang}進行翻譯`;
+
+            // 調用 groqChat 函數進行翻譯
+            let answer = await groqChat(question);
+
+            // 顯示翻譯結果
+            responseNode.innerText = answer;
+        }
+
+        document.querySelector('#translateButton').addEventListener('click', chat);
+    </script>
+</body>
+</html>
